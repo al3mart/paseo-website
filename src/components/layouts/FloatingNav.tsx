@@ -128,12 +128,9 @@ export function FloatingNav() {
 		<>
 			{/* Desktop Navigation - Top with Validator Login */}
 			<div className="fixed top-6 left-0 right-0 z-50 hidden md:block px-6">
-				<div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-					{/* Left spacer for balance */}
-					<div className="flex-1" />
-
-					{/* Centered Navigation Menu */}
-					<div className="flex-shrink-0">
+				<div className="max-w-7xl mx-auto flex items-center justify-center">
+					{/* Centered Navigation Group */}
+					<div className="flex items-center gap-3">
 						<Menubar className="bg-background/80 backdrop-blur-md border border-border rounded-full px-1.5 shadow-lg h-13 gap-1 flex items-center">
 							{NAVIGATION_ITEMS.map((item) => (
 								<MenubarMenu key={item.name}>
@@ -152,10 +149,7 @@ export function FloatingNav() {
 								</MenubarMenu>
 							))}
 						</Menubar>
-					</div>
 
-					{/* Right side buttons */}
-					<div className="flex-1 flex items-center justify-end gap-4">
 						<ThemeToggle />
 						<Button
 							onClick={() => window.open(URLS.validatorLogs, "_blank")}
