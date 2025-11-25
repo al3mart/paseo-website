@@ -236,21 +236,23 @@ function GitHubFileBrowserContent({
 									<div key={file.path}>
 										<Tooltip>
 											<TooltipTrigger asChild>
-												<button
-													type="button"
+												<Button
+													variant="ghost"
 													onClick={() => setSelectedFile(file)}
 													className={cn(
-														"w-full text-left px-6 py-3 hover:bg-accent transition-colors",
+														"w-full text-left px-6 py-3 h-auto justify-start hover:bg-accent transition-colors",
 														selectedFile?.path === file.path && "bg-accent",
 													)}
 												>
-													<div className="font-medium text-sm truncate">
-														{file.name}
+													<div className="w-full">
+														<div className="font-medium text-sm truncate">
+															{file.name}
+														</div>
+														<div className="text-xs text-muted-foreground">
+															{formatFileSize(file.size)}
+														</div>
 													</div>
-													<div className="text-xs text-muted-foreground">
-														{formatFileSize(file.size)}
-													</div>
-												</button>
+												</Button>
 											</TooltipTrigger>
 											<TooltipContent>
 												<p>{file.name}</p>

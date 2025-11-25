@@ -1,9 +1,12 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
-import { useState } from "react";
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from "@/components/ui/accordion";
 import { FAQ_CONTENT } from "@/constants/faq";
-import { cn } from "@/lib/utils";
 
 // Helper function to render text with clickable links
 const renderAnswerWithLinks = (text: string): React.ReactNode => {
@@ -32,12 +35,6 @@ const renderAnswerWithLinks = (text: string): React.ReactNode => {
 };
 
 export function FAQSection() {
-	const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-	const toggleFAQ = (index: number) => {
-		setOpenIndex(openIndex === index ? null : index);
-	};
-
 	return (
 		<section id="faq" className="section-secondary py-24">
 			<div className="max-w-7xl mx-auto px-6">
@@ -50,40 +47,24 @@ export function FAQSection() {
 					</p>
 				</div>
 
-				<div className="space-y-4">
+				<Accordion type="single" collapsible className="space-y-4">
 					{FAQ_CONTENT.items.map((item, index) => (
-						<div
+						<AccordionItem
 							key={item.question}
+							value={`item-${index}`}
 							className="bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/30 transition-all duration-200"
 						>
-							<button
-								type="button"
-								onClick={() => toggleFAQ(index)}
-								className="w-full px-6 py-5 text-left flex items-center justify-between hover:bg-accent/5 transition-colors duration-200"
-							>
+							<AccordionTrigger className="px-6 py-5 text-left hover:bg-accent/5 transition-colors duration-200 hover:no-underline">
 								<h3 className="text-lg font-medium pr-4">{item.question}</h3>
-								<ChevronDown
-									className={cn(
-										"w-5 h-5 text-muted-foreground transition-transform duration-200 flex-shrink-0",
-										openIndex === index && "rotate-180",
-									)}
-								/>
-							</button>
-							<div
-								className={cn(
-									"px-6 overflow-hidden transition-all duration-300",
-									openIndex === index
-										? "py-5 border-t border-border"
-										: "max-h-0",
-								)}
-							>
-								<p className="text-muted-foreground leading-relaxed">
+							</AccordionTrigger>
+							<AccordionContent className="px-6 pb-5 border-t border-border">
+								<p className="text-muted-foreground leading-relaxed pt-5">
 									{renderAnswerWithLinks(item.answer)}
 								</p>
-							</div>
-						</div>
+							</AccordionContent>
+						</AccordionItem>
 					))}
-				</div>
+				</Accordion>
 			</div>
 		</section>
 	);

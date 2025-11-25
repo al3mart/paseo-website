@@ -1,6 +1,7 @@
 "use client";
 
 import { Download } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { CHAIN_SPECS_CONTENT } from "@/constants/chain-specs";
 
 export function ChainSpecsSection() {
@@ -35,14 +36,15 @@ export function ChainSpecsSection() {
 									<code className="text-xs bg-background/50 px-2 py-1 rounded text-primary">
 										{spec.filename}
 									</code>
-									<button
-										type="button"
+									<Button
+										variant="ghost"
+										size="sm"
 										onClick={() => window.open(spec.url, "_blank")}
-										className="bg-primary/10 hover:bg-primary/20 text-primary px-3 py-1 rounded-lg text-sm transition-colors duration-200 flex items-center space-x-1"
+										className="bg-primary/10 hover:bg-primary/20 text-primary h-auto px-3 py-1 rounded-lg text-sm"
 									>
 										<Download className="w-3 h-3" />
 										<span>{CHAIN_SPECS_CONTENT.downloadLabel}</span>
-									</button>
+									</Button>
 								</div>
 							</div>
 						);
