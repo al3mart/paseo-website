@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { FOOTER_CONTENT, type FooterLink } from "@/constants/footer";
 import { URLS } from "@/constants/urls";
 import { useThemeFolder } from "@/hooks/useThemeFolder";
@@ -10,19 +11,33 @@ import { Logo } from "../shared/Logo";
 export function Footer() {
 	const themeFolder = useThemeFolder();
 
-	const renderLinks = (link: FooterLink, className?: string) => (
-		<a
-			href={link.href}
-			className={cn(
-				"text-muted-foreground hover:text-primary hover:underline transition-colors duration-200",
-				className,
-			)}
-			target={link.external ? "_blank" : undefined}
-			rel={link.external ? "noopener noreferrer" : undefined}
-		>
-			{link.label}
-		</a>
-	);
+	const renderLinks = (link: FooterLink, className?: string) => {
+		const linkClassName = cn(
+			"text-muted-foreground hover:text-primary hover:underline transition-colors duration-200",
+			className,
+		);
+
+		// Use Next.js Link for internal navigation (hash links)
+		if (!link.external) {
+			return (
+				<Link href={link.href} className={linkClassName}>
+					{link.label}
+				</Link>
+			);
+		}
+
+		// Use regular <a> tag for external links
+		return (
+			<a
+				href={link.href}
+				className={linkClassName}
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				{link.label}
+			</a>
+		);
+	};
 
 	return (
 		<footer className="section-primary border-t border-primary-foreground/20">

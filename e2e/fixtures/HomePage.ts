@@ -153,10 +153,17 @@ export class HomePage extends BasePage {
 	}
 
 	/**
-	 * Get FAQ accordion items
+	 * Get FAQ accordion items (the AccordionItem containers)
 	 */
 	getFaqAccordionItems(): Locator {
-		return this.faqSection.locator("[data-state]");
+		return this.faqSection.locator("[data-slot='accordion-item']");
+	}
+
+	/**
+	 * Get FAQ accordion triggers (the clickable buttons)
+	 */
+	getFaqAccordionTriggers(): Locator {
+		return this.faqSection.locator("[data-slot='accordion-trigger']");
 	}
 
 	/**
