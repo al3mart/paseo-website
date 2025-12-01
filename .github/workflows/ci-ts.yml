@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   ts-checks:
-    uses: zondax/_workflows/.github/workflows/_checks-ts.yaml@v3
+    uses: zondax/_workflows/.github/workflows/_checks-ts.yaml@v5
     with:
       package_manager: pnpm
       enable_coverage: false
