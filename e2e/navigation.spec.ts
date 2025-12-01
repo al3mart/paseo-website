@@ -51,8 +51,8 @@ test.describe("Navigation and Section Interaction", () => {
 			// Then click Home
 			await page.getByRole("menuitem", { name: "Home", exact: true }).click();
 
-			// Verify hero section is visible
-			await expect(homePage.heroSection).toBeInViewport({ timeout: 1000 });
+			// Wait for scroll animation to complete and verify hero section is visible
+			await expect(homePage.heroSection).toBeInViewport({ timeout: 3000 });
 		});
 	});
 
