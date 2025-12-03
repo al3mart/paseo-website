@@ -42,13 +42,25 @@ export const URLS = {
 	chainSpecsBase: "https://paseo-r2.zondax.ch/chain-specs",
 	chainSpecs: {
 		relayChain: "https://paseo-r2.zondax.ch/chain-specs/paseo.raw.json",
+		relayChainSmol:
+			"https://paseo-r2.zondax.ch/chain-specs/paseo.raw.smol.json",
 		assetHub: "https://paseo-r2.zondax.ch/chain-specs/paseo-asset-hub.json",
+		assetHubSmol:
+			"https://paseo-r2.zondax.ch/chain-specs/paseo-asset-hub.smol.json",
 		bridgeHub:
 			"https://paseo-r2.zondax.ch/chain-specs/paseo-bridge-hub.raw.json",
+		bridgeHubSmol:
+			"https://paseo-r2.zondax.ch/chain-specs/paseo-bridge-hub.raw.smol.json",
 		coretime: "https://paseo-r2.zondax.ch/chain-specs/paseo-coretime.raw.json",
+		coretimeSmol:
+			"https://paseo-r2.zondax.ch/chain-specs/paseo-coretime.raw.smol.json",
 		people: "https://paseo-r2.zondax.ch/chain-specs/paseo-people.raw.json",
+		peopleSmol:
+			"https://paseo-r2.zondax.ch/chain-specs/paseo-people.raw.smol.json",
 		collectives:
 			"https://paseo-r2.zondax.ch/chain-specs/paseo-collectives.raw.json",
+		collectivesSmol:
+			"https://paseo-r2.zondax.ch/chain-specs/paseo-collectives.raw.smol.json",
 	},
 
 	// Resources

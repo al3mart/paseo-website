@@ -1,11 +1,15 @@
 import { Database, FileCode, type LucideIcon, Server } from "lucide-react";
 import { URLS } from "./urls";
 
+interface ChainSpecFile {
+	readonly filename: string;
+	readonly url: string;
+}
+
 interface ChainSpec {
 	readonly title: string;
 	readonly description: string;
-	readonly filename: string;
-	readonly url: string;
+	readonly files: readonly ChainSpecFile[];
 	readonly icon: LucideIcon;
 }
 
@@ -26,43 +30,79 @@ export const CHAIN_SPECS_CONTENT = {
 		{
 			title: "Paseo Relay Chain",
 			description: "Main relay chain specification file",
-			filename: "paseo.raw.json",
-			url: URLS.chainSpecs.relayChain,
+			files: [
+				{ filename: "paseo.raw.json", url: URLS.chainSpecs.relayChain },
+				{
+					filename: "paseo.raw.smol.json",
+					url: URLS.chainSpecs.relayChainSmol,
+				},
+			],
 			icon: Server,
 		},
 		{
 			title: "Asset Hub",
 			description: "Asset Hub parachain specification",
-			filename: "paseo-asset-hub.json",
-			url: URLS.chainSpecs.assetHub,
+			files: [
+				{ filename: "paseo-asset-hub.json", url: URLS.chainSpecs.assetHub },
+				{
+					filename: "paseo-asset-hub.smol.json",
+					url: URLS.chainSpecs.assetHubSmol,
+				},
+			],
 			icon: Database,
 		},
 		{
 			title: "Bridge Hub",
 			description: "Bridge Hub parachain specification",
-			filename: "paseo-bridge-hub.raw.json",
-			url: URLS.chainSpecs.bridgeHub,
+			files: [
+				{
+					filename: "paseo-bridge-hub.raw.json",
+					url: URLS.chainSpecs.bridgeHub,
+				},
+				{
+					filename: "paseo-bridge-hub.raw.smol.json",
+					url: URLS.chainSpecs.bridgeHubSmol,
+				},
+			],
 			icon: FileCode,
 		},
 		{
 			title: "Coretime Chain",
 			description: "Coretime parachain specification",
-			filename: "paseo-coretime.raw.json",
-			url: URLS.chainSpecs.coretime,
+			files: [
+				{ filename: "paseo-coretime.raw.json", url: URLS.chainSpecs.coretime },
+				{
+					filename: "paseo-coretime.raw.smol.json",
+					url: URLS.chainSpecs.coretimeSmol,
+				},
+			],
 			icon: Server,
 		},
 		{
 			title: "People Chain",
 			description: "People parachain specification",
-			filename: "paseo-people.raw.json",
-			url: URLS.chainSpecs.people,
+			files: [
+				{ filename: "paseo-people.raw.json", url: URLS.chainSpecs.people },
+				{
+					filename: "paseo-people.raw.smol.json",
+					url: URLS.chainSpecs.peopleSmol,
+				},
+			],
 			icon: Database,
 		},
 		{
 			title: "Collectives Chain",
 			description: "Collectives parachain specification",
-			filename: "paseo-collectives.raw.json",
-			url: URLS.chainSpecs.collectives,
+			files: [
+				{
+					filename: "paseo-collectives.raw.json",
+					url: URLS.chainSpecs.collectives,
+				},
+				{
+					filename: "paseo-collectives.raw.smol.json",
+					url: URLS.chainSpecs.collectivesSmol,
+				},
+			],
 			icon: Database,
 		},
 	],
