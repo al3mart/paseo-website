@@ -1,19 +1,30 @@
 // Navigation item structure
+export interface SubMenuItem {
+	name: string;
+	href: string;
+}
+
 export interface MenuItem {
 	name: string;
 	href: string;
 	onClick?: () => void;
+	submenu?: readonly SubMenuItem[];
 }
+
+// Developer page submenu items
+export const DEVELOPER_SUBMENU_ITEMS: readonly SubMenuItem[] = [
+	{ name: "RPC Endpoints", href: "/developers#rpc-endpoints" },
+	{ name: "Chain Specs", href: "/developers#chain-specs" },
+	{ name: "Network Comparison", href: "/developers#network-comparison" },
+	{ name: "Tools & Docs", href: "/developers#tools-and-docs" },
+];
 
 // Main navigation menu items
 export const NAVIGATION_ITEMS: readonly MenuItem[] = [
 	{ name: "Home", href: "#hero" },
 	{ name: "About", href: "#about" },
-	{ name: "Resources", href: "#resources" },
-	{ name: "Features", href: "#features" },
-	{ name: "Comparison", href: "#comparison" },
-	{ name: "Chain Specs", href: "#chain-specs" },
 	{ name: "FAQ", href: "#faq" },
+	{ name: "Developers", href: "/developers", submenu: DEVELOPER_SUBMENU_ITEMS },
 ];
 
 // Labels for auxiliary UI elements (external links, theme toggle, modal titles)

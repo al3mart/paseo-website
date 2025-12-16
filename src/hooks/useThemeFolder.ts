@@ -1,29 +1,25 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
 import { useTheme } from "@/components/providers/ThemeProvider";
 
 /**
- * Hook to get the current theme folder ("dark" or "light")
- * Handles SSR hydration by always rendering light theme on server
- * and first client render to avoid hydration mismatch
+ * Hook to get the current theme folder ("dark" | "light")
+ * Handles SSR hydration by returning "light" on server and first render
+ * to avoid hydration mismatch, then updating to the actual theme
  */
 export function useThemeFolder(): "dark" | "light" {
-	const { theme } = useTheme();
+	const { resolvedTheme } = useTheme();
 	const [mounted, setMounted] = useState(false);
 
 	useEffect(() => {
 		setMounted(true);
 	}, []);
 
-	// Always render light theme on server and first client render to avoid hydration mismatch
-	const isDark =
-		mounted &&
-		(theme === "dark" ||
-			(theme === "system" &&
-				typeof window !== "undefined" &&
-				window.matchMedia("(prefers-color-scheme: dark)").matches));
+	// Always return "light" on server and first client render to avoid hydration mismatch
+	if (!mounted) {
+		return "light";
+	}
 
-	return isDark ? "dark" : "light";
+	return resolvedTheme ?? "light";
 }

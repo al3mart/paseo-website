@@ -48,9 +48,8 @@ export const FOOTER_CONTENT = {
 		network: {
 			title: "Network",
 			links: [
-				{ label: "About Paseo", href: "#about", external: false },
-				{ label: "Features", href: "#features", external: false },
-				{ label: "Resources", href: "#resources", external: false },
+				{ label: "About Paseo", href: "/#about", external: false },
+				{ label: "Features", href: "/#features", external: false },
 			],
 		},
 		developers: {
@@ -65,6 +64,11 @@ export const FOOTER_CONTENT = {
 					label: "Chain Specs",
 					href: URLS.githubChainSpecs,
 					external: true,
+				},
+				{
+					label: "Tools & Docs",
+					href: "/developers#tools-and-docs",
+					external: false,
 				},
 				{
 					label: "Support",

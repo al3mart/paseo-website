@@ -37,111 +37,14 @@ test.describe("Click Interactions", () => {
 		});
 	});
 
-	test.describe("Resource Cards", () => {
+	test.describe("About Section", () => {
 		test.beforeEach(async ({ page }) => {
-			await page
-				.getByRole("menuitem", { name: "Resources", exact: true })
-				.click();
-			await expect(homePage.resourcesSection).toBeInViewport({ timeout: 1000 });
+			await page.getByRole("menuitem", { name: "About", exact: true }).click();
+			await expect(homePage.aboutSection).toBeInViewport({ timeout: 2000 });
 		});
 
-		test("should display resource cards with buttons", async () => {
-			const resourceCards = homePage.resourcesSection.locator(
-				"[class*='card'], article",
-			);
-			const cardCount = await resourceCards.count();
-
-			expect(cardCount).toBeGreaterThan(0);
-
-			for (let i = 0; i < Math.min(cardCount, 3); i++) {
-				const card = resourceCards.nth(i);
-				const button = card.locator("button");
-				if ((await button.count()) > 0) {
-					await expect(button.first()).toBeVisible();
-				}
-			}
-		});
-
-		test("should handle resource card button clicks", async () => {
-			const resourceButtons = homePage.resourcesSection.locator("button");
-			const buttonCount = await resourceButtons.count();
-
-			if (buttonCount > 0) {
-				const firstButton = resourceButtons.first();
-				await expect(firstButton).toBeVisible();
-				await expect(firstButton).toBeEnabled();
-
-				// Check if clicking opens a modal or navigates
-				const buttonText = await firstButton.textContent();
-				expect(buttonText).toBeTruthy();
-			}
-		});
-
-		test("should open modal when clicking View Details button", async ({
-			page,
-		}) => {
-			const viewDetailsButtons = homePage.resourcesSection.getByRole("button", {
-				name: /view details/i,
-			});
-
-			if ((await viewDetailsButtons.count()) > 0) {
-				await viewDetailsButtons.first().click();
-
-				// Wait for modal to appear
-				const modal = page.locator('[role="dialog"]');
-				await expect(modal).toBeVisible({ timeout: 2000 });
-
-				// Close modal
-				const closeButton = modal.getByRole("button", { name: /close/i });
-				if ((await closeButton.count()) > 0) {
-					await closeButton.click();
-					await expect(modal).not.toBeVisible({ timeout: 1000 });
-				}
-			}
-		});
-	});
-
-	test.describe("Chain Specs Download Buttons", () => {
-		test.beforeEach(async ({ page }) => {
-			await page
-				.getByRole("menuitem", { name: "Chain Specs", exact: true })
-				.click();
-			await expect(homePage.chainSpecsSection).toBeInViewport({
-				timeout: 1000,
-			});
-		});
-
-		test("should display download buttons for chain specs", async () => {
-			const downloadButtons = homePage.chainSpecsSection.locator(
-				"button:has-text('Download')",
-			);
-			const buttonCount = await downloadButtons.count();
-
-			expect(buttonCount).toBeGreaterThan(0);
-
-			for (let i = 0; i < buttonCount; i++) {
-				const button = downloadButtons.nth(i);
-				await expect(button).toBeVisible();
-				await expect(button).toBeEnabled();
-			}
-		});
-
-		test("should open chain spec file when clicking download", async ({
-			page,
-		}) => {
-			const downloadButtons = homePage.chainSpecsSection.locator(
-				"button:has-text('Download')",
-			);
-
-			if ((await downloadButtons.count()) > 0) {
-				const [newPage] = await Promise.all([
-					page.context().waitForEvent("page"),
-					downloadButtons.first().click(),
-				]);
-
-				// Should open a new page with the spec file
-				expect(newPage.url()).toBeTruthy();
-			}
+		test("should display about section content", async () => {
+			await expect(homePage.aboutSection).toBeVisible();
 		});
 	});
 
@@ -169,13 +72,16 @@ test.describe("Click Interactions", () => {
 			});
 			await aboutMenuItem.click();
 
-			await expect(homePage.aboutSection).toBeInViewport({ timeout: 1000 });
+			await expect(homePage.aboutSection).toBeInViewport({ timeout: 2000 });
 		});
 	});
 
 	test.describe("Footer Link Clicks", () => {
-		test.beforeEach(async () => {
+		test.beforeEach(async ({ page }) => {
+			// First wait for the page to be loaded then scroll to footer
+			await page.waitForLoadState("domcontentloaded");
 			await homePage.footer.scrollIntoViewIfNeeded();
+			await expect(homePage.footer).toBeVisible();
 		});
 
 		test("should have clickable footer links", async () => {

@@ -13,10 +13,7 @@ test.describe("Rapid Interaction Handling", () => {
 		// Rapidly click different sections
 		await page.getByRole("menuitem", { name: "About", exact: true }).click();
 
-		await page
-			.getByRole("menuitem", { name: "Features", exact: true })
-			.first()
-			.click();
+		await page.getByRole("menuitem", { name: "Home", exact: true }).click();
 
 		const faqMenuItem = await page.getByRole("menuitem", {
 			name: "FAQ",
@@ -33,9 +30,7 @@ test.describe("Rapid Interaction Handling", () => {
 		page,
 	}) => {
 		// Start scrolling to one section
-		await page
-			.getByRole("menuitem", { name: "Comparison", exact: true })
-			.click();
+		await page.getByRole("menuitem", { name: "About", exact: true }).click();
 
 		// Immediately click another section
 		const faqMenuItem = await page.getByRole("menuitem", {
@@ -51,23 +46,15 @@ test.describe("Rapid Interaction Handling", () => {
 
 	test("should handle multiple rapid section changes", async ({ page }) => {
 		// Rapidly navigate through multiple sections
-		const sections = ["About", "Resources", "Features", "Comparison", "FAQ"];
+		const sections = ["About", "FAQ"];
 
 		for (const section of sections) {
-			if (section === "Features") {
-				const featuresMenuItem = await page
-					.getByRole("menuitem", { name: section, exact: true })
-					.first();
-				await featuresMenuItem.waitFor({ state: "visible", timeout: 10000 });
-				await featuresMenuItem.click();
-			} else {
-				const sectionMenuItem = await page.getByRole("menuitem", {
-					name: section,
-					exact: true,
-				});
-				await sectionMenuItem.waitFor({ state: "visible", timeout: 10000 });
-				await sectionMenuItem.click();
-			}
+			const sectionMenuItem = await page.getByRole("menuitem", {
+				name: section,
+				exact: true,
+			});
+			await sectionMenuItem.waitFor({ state: "visible", timeout: 10000 });
+			await sectionMenuItem.click();
 		}
 
 		// Should be at FAQ section
@@ -119,13 +106,13 @@ test.describe("Rapid Interaction Handling", () => {
 		await page.waitForTimeout(100); // Minimal wait
 
 		// Click navigation before page fully settles
-		const featuresMenuItem = await page
-			.getByRole("menuitem", { name: "Features", exact: true })
+		const aboutMenuItem = await page
+			.getByRole("menuitem", { name: "About", exact: true })
 			.first();
-		await featuresMenuItem.waitFor({ state: "visible", timeout: 10000 });
-		await featuresMenuItem.click();
+		await aboutMenuItem.waitFor({ state: "visible", timeout: 10000 });
+		await aboutMenuItem.click();
 
 		// Should still navigate correctly
-		await expect(homePage.featuresSection).toBeInViewport({ timeout: 1000 });
+		await expect(homePage.aboutSection).toBeInViewport({ timeout: 1000 });
 	});
 });

@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ISOLATED_NAV_LABELS, type MenuItem } from "@/constants/navigation";
@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 interface MobileMenuProps {
 	items: readonly MenuItem[];
 	activeItem?: string;
+	isItemActive?: (item: MenuItem) => boolean;
 	onItemClick?: (href: string) => void;
 	additionalContent?: React.ReactNode;
 	className?: string;
@@ -17,11 +18,13 @@ interface MobileMenuProps {
 export function MobileMenu({
 	items,
 	activeItem,
+	isItemActive,
 	onItemClick,
 	additionalContent,
 	className = "",
 }: MobileMenuProps) {
 	const [isOpen, setIsOpen] = useState(false);
+	const [expandedItem, setExpandedItem] = useState<string | null>(null);
 	const dialogRef = useRef<HTMLDivElement>(null);
 
 	const handleItemClick = (item: MenuItem) => {
@@ -141,20 +144,64 @@ export function MobileMenu({
 							</h2>
 							{/* Navigation Items */}
 							<div className="space-y-2">
-								{items.map((item) => (
-									<Button
-										key={item.name}
-										variant={
-											activeItem === item.href.substring(1)
-												? "default"
-												: "ghost"
-										}
-										onClick={() => handleItemClick(item)}
-										className="w-full justify-start px-4 py-3 h-auto text-sm font-medium"
-									>
-										{item.name}
-									</Button>
-								))}
+								{items.map((item) => {
+									const active = isItemActive
+										? isItemActive(item)
+										: activeItem === item.href.substring(1);
+									const hasSubmenu = item.submenu && item.submenu.length > 0;
+									const isExpanded = expandedItem === item.name;
+
+									return (
+										<div key={item.name}>
+											{hasSubmenu ? (
+												<>
+													<Button
+														variant={active ? "default" : "ghost"}
+														onClick={() =>
+															setExpandedItem(isExpanded ? null : item.name)
+														}
+														className="w-full justify-between px-4 py-3 h-auto text-sm font-medium"
+													>
+														{item.name}
+														<ChevronDown
+															className={cn(
+																"h-4 w-4 transition-transform duration-200",
+																isExpanded && "rotate-180",
+															)}
+														/>
+													</Button>
+													{isExpanded && (
+														<div className="ml-4 mt-1 space-y-1 border-l border-border pl-3">
+															{item.submenu?.map((subItem) => (
+																<Button
+																	key={subItem.name}
+																	variant="ghost"
+																	onClick={() => {
+																		if (onItemClick) {
+																			onItemClick(subItem.href);
+																		}
+																		setIsOpen(false);
+																	}}
+																	className="w-full justify-start px-3 py-2 h-auto text-sm text-muted-foreground hover:text-foreground"
+																>
+																	{subItem.name}
+																</Button>
+															))}
+														</div>
+													)}
+												</>
+											) : (
+												<Button
+													variant={active ? "default" : "ghost"}
+													onClick={() => handleItemClick(item)}
+													className="w-full justify-start px-4 py-3 h-auto text-sm font-medium"
+												>
+													{item.name}
+												</Button>
+											)}
+										</div>
+									);
+								})}
 							</div>
 
 							{/* Additional Content */}

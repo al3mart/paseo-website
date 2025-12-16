@@ -1,7 +1,6 @@
 "use client";
 
-import { Copy, ExternalLink } from "lucide-react";
-import { useState } from "react";
+import { ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
@@ -9,6 +8,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
+import { CopyButton } from "./CopyButton";
 
 export interface DetailField {
 	label: string;
@@ -46,18 +46,6 @@ export function ResourceDetailsModal({
 	title,
 	data,
 }: ResourceDetailsModalProps) {
-	const [copiedText, setCopiedText] = useState<string | null>(null);
-
-	const copyToClipboard = async (text: string) => {
-		try {
-			await navigator.clipboard.writeText(text);
-			setCopiedText(text);
-			setTimeout(() => setCopiedText(null), 2000);
-		} catch (err) {
-			console.error("Failed to copy:", err);
-		}
-	};
-
 	const renderField = (field: DetailField) => {
 		const isArray = Array.isArray(field.value);
 		const values: string[] = isArray
@@ -79,14 +67,7 @@ export function ResourceDetailsModal({
 									className="flex items-center justify-between bg-muted rounded-md p-2"
 								>
 									<code className="text-sm flex-1 mr-2 break-all">{value}</code>
-									<Button
-										variant="ghost"
-										size="sm"
-										onClick={() => copyToClipboard(value)}
-										className="flex-shrink-0"
-									>
-										<Copy className="h-4 w-4" />
-									</Button>
+									<CopyButton value={value} />
 								</div>
 							))}
 						</div>
@@ -168,12 +149,6 @@ export function ResourceDetailsModal({
 									<ExternalLink className="ml-2 h-4 w-4" />
 								</Button>
 							))}
-						</div>
-					)}
-
-					{copiedText && (
-						<div className="text-center text-sm text-green-600">
-							Copied to clipboard!
 						</div>
 					)}
 				</div>
