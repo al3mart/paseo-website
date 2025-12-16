@@ -1,7 +1,6 @@
 "use client";
 
-import { Download } from "lucide-react";
-import { useState } from "react";
+import { InfoCard } from "@/components/shared/InfoCard";
 import { Button } from "@/components/ui/button";
 import {
 	Select,
@@ -11,6 +10,8 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { CHAIN_SPECS_CONTENT } from "@/constants/chain-specs";
+import { Download } from "lucide-react";
+import { useState } from "react";
 
 function getInitialSelectedFiles(): Record<string, string> {
 	const initial: Record<string, string> = {};
@@ -75,47 +76,45 @@ export function ChainSpecsSection() {
 
 				<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
 					{CHAIN_SPECS_CONTENT.specs.map((spec) => {
-						const Icon = spec.icon;
 						const selectedFile = getSelectedFile(spec.title);
 						const hasMultipleFiles = spec.files.length > 1;
 
 						return (
-							<div
+							<InfoCard
 								key={spec.title}
-								className="bg-card p-6 rounded-2xl border border-border hover:border-primary/50 transition-all duration-200"
-							>
-								<div className="bg-primary/10 w-12 h-12 rounded-xl flex items-center justify-center mb-4">
-									<Icon className="w-6 h-6 text-primary" />
-								</div>
-								<h3 className="text-lg mb-2">{spec.title}</h3>
-								<p className="text-muted-foreground text-sm mb-4">
-									{spec.description}
-								</p>
-								<div className="flex items-center gap-2">
-									{hasMultipleFiles ? (
-										<FileSelect
-											files={spec.files}
-											value={selectedFiles[spec.title]}
-											onChange={(value) => handleFileChange(spec.title, value)}
-										/>
-									) : (
-										<code className="flex-1 text-xs bg-background/50 px-2 py-1 rounded text-primary truncate">
-											{spec.files[0].filename}
-										</code>
-									)}
-									<Button
-										variant="ghost"
-										size="sm"
-										onClick={() =>
-											selectedFile && window.open(selectedFile.url, "_blank")
-										}
-										className="bg-primary/10 hover:bg-primary/20 text-primary h-auto px-3 py-1 rounded-lg text-sm shrink-0"
-									>
-										<Download className="w-3 h-3" />
-										<span>{CHAIN_SPECS_CONTENT.downloadLabel}</span>
-									</Button>
-								</div>
-							</div>
+								icon={spec.icon}
+								title={spec.title}
+								description={spec.description}
+								className="p-6"
+								footer={
+									<div className="flex items-center gap-2">
+										{hasMultipleFiles ? (
+											<FileSelect
+												files={spec.files}
+												value={selectedFiles[spec.title]}
+												onChange={(value) =>
+													handleFileChange(spec.title, value)
+												}
+											/>
+										) : (
+											<code className="flex-1 text-xs bg-background/50 px-2 py-1 rounded text-primary truncate">
+												{spec.files[0].filename}
+											</code>
+										)}
+										<Button
+											variant="ghost"
+											size="sm"
+											onClick={() =>
+												selectedFile && window.open(selectedFile.url, "_blank")
+											}
+											className="bg-primary/10 hover:bg-primary/20 text-primary h-auto px-3 py-1 rounded-lg text-sm shrink-0"
+										>
+											<Download className="w-3 h-3" />
+											<span>{CHAIN_SPECS_CONTENT.downloadLabel}</span>
+										</Button>
+									</div>
+								}
+							/>
 						);
 					})}
 				</div>

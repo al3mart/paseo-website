@@ -15,11 +15,6 @@ export class HomePage extends BasePage {
 	// Sections
 	readonly heroSection: Locator;
 	readonly aboutSection: Locator;
-	readonly resourcesSection: Locator;
-	readonly logoSection: Locator;
-	readonly featuresSection: Locator;
-	readonly comparisonSection: Locator;
-	readonly chainSpecsSection: Locator;
 	readonly faqSection: Locator;
 	readonly footer: Locator;
 
@@ -37,13 +32,6 @@ export class HomePage extends BasePage {
 		// Sections
 		this.heroSection = page.locator("#hero");
 		this.aboutSection = page.locator("#about");
-		this.resourcesSection = page.locator("#resources");
-		this.logoSection = page.locator("section").filter({
-			has: page.locator("h2:has-text('Trusted by teams')"),
-		});
-		this.featuresSection = page.locator("#features");
-		this.comparisonSection = page.locator("#comparison");
-		this.chainSpecsSection = page.locator("#chain-specs");
 		this.faqSection = page.locator("#faq");
 		this.footer = page.locator("footer");
 	}
@@ -95,15 +83,7 @@ export class HomePage extends BasePage {
 	 * Get all section IDs in order
 	 */
 	getSectionIds(): string[] {
-		return [
-			"hero",
-			"about",
-			"resources",
-			"features",
-			"comparison",
-			"chain-specs",
-			"faq",
-		];
+		return ["hero", "about", "faq"];
 	}
 
 	/**

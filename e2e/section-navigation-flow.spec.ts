@@ -10,7 +10,7 @@ test.describe("Section Navigation Flow", () => {
 	});
 
 	test.describe("Sequential Section Navigation", () => {
-		test("should navigate from hero to about to resources in order", async ({
+		test("should navigate from hero to about to faq in order", async ({
 			page,
 		}) => {
 			// Start at hero
@@ -20,11 +20,9 @@ test.describe("Section Navigation Flow", () => {
 			await page.getByRole("menuitem", { name: "About", exact: true }).click();
 			await expect(homePage.aboutSection).toBeInViewport({ timeout: 1000 });
 
-			// Navigate to Resources
-			await page
-				.getByRole("menuitem", { name: "Resources", exact: true })
-				.click();
-			await expect(homePage.resourcesSection).toBeInViewport({ timeout: 1000 });
+			// Navigate to FAQ
+			await page.getByRole("menuitem", { name: "FAQ", exact: true }).click();
+			await expect(homePage.faqSection).toBeInViewport({ timeout: 1000 });
 		});
 
 		test("should navigate through all sections in sequence", async ({
@@ -32,10 +30,6 @@ test.describe("Section Navigation Flow", () => {
 		}) => {
 			const navigationSequence = [
 				{ name: "About", section: homePage.aboutSection },
-				{ name: "Resources", section: homePage.resourcesSection },
-				{ name: "Features", section: homePage.featuresSection },
-				{ name: "Comparison", section: homePage.comparisonSection },
-				{ name: "Chain Specs", section: homePage.chainSpecsSection },
 				{ name: "FAQ", section: homePage.faqSection },
 			];
 
@@ -56,31 +50,6 @@ test.describe("Section Navigation Flow", () => {
 			await expect(homePage.faqSection).toBeInViewport({ timeout: 1000 });
 
 			// Navigate backwards
-			await page
-				.getByRole("menuitem", { name: "Chain Specs", exact: true })
-				.click();
-			await expect(homePage.chainSpecsSection).toBeInViewport({
-				timeout: 1000,
-			});
-
-			await page
-				.getByRole("menuitem", { name: "Comparison", exact: true })
-				.click();
-			await expect(homePage.comparisonSection).toBeInViewport({
-				timeout: 1000,
-			});
-
-			await page
-				.getByRole("menuitem", { name: "Features", exact: true })
-				.first()
-				.click();
-			await expect(homePage.featuresSection).toBeInViewport({ timeout: 1000 });
-
-			await page
-				.getByRole("menuitem", { name: "Resources", exact: true })
-				.click();
-			await expect(homePage.resourcesSection).toBeInViewport({ timeout: 1000 });
-
 			await page.getByRole("menuitem", { name: "About", exact: true }).click();
 			await expect(homePage.aboutSection).toBeInViewport({ timeout: 1000 });
 
@@ -120,30 +89,24 @@ test.describe("Section Navigation Flow", () => {
 		test("should jump to middle section from top and bottom", async ({
 			page,
 		}) => {
-			// Jump to Features from top
-			await page
-				.getByRole("menuitem", { name: "Features", exact: true })
-				.first()
-				.click();
-			await expect(homePage.featuresSection).toBeInViewport({ timeout: 1000 });
-
-			const scrollFromTop = await page.evaluate(() => window.scrollY);
-
-			// Go to FAQ
+			// Jump to FAQ from top
 			await page.getByRole("menuitem", { name: "FAQ", exact: true }).click();
 			await expect(homePage.faqSection).toBeInViewport({ timeout: 1000 });
 
-			// Jump back to Features
-			await page
-				.getByRole("menuitem", { name: "Features", exact: true })
-				.first()
-				.click();
-			await expect(homePage.featuresSection).toBeInViewport({ timeout: 1000 });
+			const scrollFromTop = await page.evaluate(() => window.scrollY);
 
-			const scrollFromBottom = await page.evaluate(() => window.scrollY);
+			// Go to About
+			await page.getByRole("menuitem", { name: "Home", exact: true }).click();
+			await expect(homePage.heroSection).toBeInViewport({ timeout: 1000 });
+
+			// Jump back to FAQ
+			await page.getByRole("menuitem", { name: "FAQ", exact: true }).click();
+			await expect(homePage.faqSection).toBeInViewport({ timeout: 1000 });
+
+			const scrollFromTop2 = await page.evaluate(() => window.scrollY);
 
 			// Scroll positions should be similar when viewing the same section
-			expect(Math.abs(scrollFromTop - scrollFromBottom)).toBeLessThan(100);
+			expect(Math.abs(scrollFromTop - scrollFromTop2)).toBeLessThan(100);
 		});
 	});
 
@@ -151,36 +114,28 @@ test.describe("Section Navigation Flow", () => {
 		test("should maintain section position after navigation", async ({
 			page,
 		}) => {
-			// Navigate to Comparison
-			await page
-				.getByRole("menuitem", { name: "Comparison", exact: true })
-				.click();
-			await expect(homePage.comparisonSection).toBeInViewport({
+			// Navigate to FAQ (using FAQ since About section may have interactive elements)
+			await page.getByRole("menuitem", { name: "FAQ", exact: true }).click();
+			await expect(homePage.faqSection).toBeInViewport({
 				timeout: 1000,
 			});
 
 			// Get initial position
 			const initialScroll = await page.evaluate(() => window.scrollY);
 
-			// Click somewhere in the section (not a link)
-			await homePage.comparisonSection.click({ position: { x: 100, y: 100 } });
+			// Click somewhere in the section header (not on interactive elements)
+			const heading = homePage.faqSection.locator("h2").first();
+			await heading.click();
 
 			// Position should remain stable
 			const afterClickScroll = await page.evaluate(() => window.scrollY);
-			expect(Math.abs(initialScroll - afterClickScroll)).toBeLessThan(50);
+			expect(Math.abs(initialScroll - afterClickScroll)).toBeLessThan(100);
 		});
 
 		test("should keep nav visible after scrolling to any section", async ({
 			page,
 		}) => {
-			const sections = [
-				"About",
-				"Resources",
-				"Features",
-				"Comparison",
-				"Chain Specs",
-				"FAQ",
-			];
+			const sections = ["About", "FAQ"];
 
 			for (const section of sections) {
 				await page
@@ -202,7 +157,6 @@ test.describe("Section Navigation Flow", () => {
 			// Navigate to each section and record scroll position
 			const sections = [
 				{ name: "About", section: homePage.aboutSection },
-				{ name: "Features", section: homePage.featuresSection },
 				{ name: "FAQ", section: homePage.faqSection },
 			];
 

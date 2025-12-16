@@ -11,11 +11,15 @@ test.describe("Button and Link Interactions", () => {
 
 	test.describe("Link Interactions", () => {
 		test("should open external links in new tab", async ({ page }) => {
+			// Wait for page to be fully loaded
+			await page.waitForLoadState("domcontentloaded");
+
 			// Scroll to footer where external links are
 			await homePage.footer.scrollIntoViewIfNeeded();
+			await expect(homePage.footer).toBeVisible();
 
-			// Find external links
-			const externalLinks = page.locator('a[target="_blank"]');
+			// Find external links in the footer
+			const externalLinks = homePage.footer.locator('a[target="_blank"]');
 			const count = await externalLinks.count();
 
 			if (count > 0) {

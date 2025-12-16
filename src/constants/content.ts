@@ -311,7 +311,7 @@ interface ResourcesContent {
 
 // Resources section content
 export const RESOURCES_CONTENT = {
-	title: "Resources",
+	title: "Tools & Docs",
 	description:
 		"Access essential tools and documentation for building on Paseo testnet",
 } as const satisfies ResourcesContent;

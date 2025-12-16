@@ -1,11 +1,15 @@
 "use client";
 
-import { ExternalLink } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
 import { MobileMenu } from "@/components/layouts/MobileMenu";
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { Button } from "@/components/ui/button";
-import { Menubar, MenubarMenu, MenubarTrigger } from "@/components/ui/menubar";
+import {
+	Menubar,
+	MenubarContent,
+	MenubarItem,
+	MenubarMenu,
+	MenubarTrigger,
+} from "@/components/ui/menubar";
 import {
 	ANIMATION_DURATION,
 	ISOLATED_NAV_LABELS,
@@ -13,10 +17,37 @@ import {
 } from "@/constants/navigation";
 import { URLS } from "@/constants/urls";
 import { cn } from "@/lib/utils";
+import { ExternalLink } from "lucide-react";
+import {
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+	type RefObject,
+} from "react";
 
 export function FloatingNav() {
 	const [activeSection, setActiveSection] = useState("hero");
+	const [currentPath, setCurrentPath] = useState("/");
+	const [isHydrated, setIsHydrated] = useState(false);
 	const scrollContainerRef = useRef<HTMLDivElement>(null);
+	const [openMenu, setOpenMenu] = useState<string>("");
+	const closeTimeoutRef: RefObject<ReturnType<typeof setTimeout> | null> =
+		useRef(null);
+
+	const handleMenuOpen = (menuName: string) => {
+		if (closeTimeoutRef.current) {
+			clearTimeout(closeTimeoutRef.current);
+			closeTimeoutRef.current = null;
+		}
+		setOpenMenu(menuName);
+	};
+
+	const handleMenuClose = () => {
+		closeTimeoutRef.current = setTimeout(() => {
+			setOpenMenu("");
+		}, 150);
+	};
 
 	// Center the active item in the mobile scroll container
 	const centerActiveItem = useCallback((sectionId: string) => {
@@ -41,11 +72,20 @@ export function FloatingNav() {
 	}, []);
 
 	useEffect(() => {
+		// Set current path on mount
+		setCurrentPath(window.location.pathname);
+		setIsHydrated(true);
+
 		const handleScroll = () => {
+			// Only track scroll sections on home page
+			if (window.location.pathname !== "/") return;
+
 			// Update active section
 			const sections = [
 				"hero",
-				...NAVIGATION_ITEMS.map((item) => item.href.substring(1)),
+				...NAVIGATION_ITEMS.filter((item) => item.href.startsWith("#")).map(
+					(item) => item.href.substring(1),
+				),
 			];
 			const currentSection = sections.find((section) => {
 				const element = document.getElementById(section);
@@ -73,6 +113,7 @@ export function FloatingNav() {
 
 		const handlePopState = () => {
 			// Handle browser back/forward navigation
+			setCurrentPath(window.location.pathname);
 			const hash = window.location.hash;
 			if (hash) {
 				scrollToHash(hash);
@@ -98,6 +139,22 @@ export function FloatingNav() {
 	useEffect(() => {
 		centerActiveItem(activeSection);
 	}, [activeSection, centerActiveItem]);
+
+	const isNavItemActive = useCallback(
+		(href: string) => {
+			if (!isHydrated) return false;
+
+			if (href.startsWith("/")) {
+				return currentPath === href || currentPath.startsWith(href + "#");
+			}
+			return (
+				href.startsWith("#") &&
+				currentPath === "/" &&
+				activeSection === href.substring(1)
+			);
+		},
+		[currentPath, activeSection, isHydrated],
+	);
 
 	const handleNavigation = (href: string) => {
 		// Check if this is an external link (starts with / or http)
@@ -131,21 +188,53 @@ export function FloatingNav() {
 				<div className="max-w-7xl mx-auto flex items-center justify-center">
 					{/* Centered Navigation Group */}
 					<div className="flex items-center gap-3">
-						<Menubar className="bg-background/80 backdrop-blur-md border border-border rounded-full px-1.5 shadow-lg h-13 gap-1 flex items-center">
+						<Menubar
+							value={openMenu}
+							onValueChange={setOpenMenu}
+							className="bg-background/80 backdrop-blur-md border border-border rounded-full px-1.5 shadow-lg h-13 gap-1 flex items-center"
+						>
 							{NAVIGATION_ITEMS.map((item) => (
-								<MenubarMenu key={item.name}>
-									<MenubarTrigger
-										onClick={() => handleNavigation(item.href)}
-										className={cn(
-											"h-10 px-4 rounded-full text-sm cursor-pointer font-medium w-fit whitespace-nowrap",
-											`transition-all duration-${ANIMATION_DURATION}`,
-											activeSection === item.href.substring(1)
-												? "bg-primary text-primary-foreground"
-												: "text-muted-foreground hover:text-foreground hover:bg-accent",
-										)}
-									>
-										{item.name}
-									</MenubarTrigger>
+								<MenubarMenu key={item.name} value={item.name}>
+									<>
+										<MenubarTrigger
+											onPointerEnter={() =>
+												item.submenu ? handleMenuOpen(item.name) : undefined
+											}
+											onPointerLeave={() =>
+												item.submenu ? handleMenuClose() : undefined
+											}
+											onClick={(e) => {
+												e.preventDefault();
+												handleNavigation(item.href);
+											}}
+											className={cn(
+												"h-10 px-4 rounded-full text-sm cursor-pointer font-medium w-fit whitespace-nowrap",
+												`transition-all duration-${ANIMATION_DURATION}`,
+												isNavItemActive(item.href)
+													? "bg-primary text-primary-foreground"
+													: "text-muted-foreground hover:text-foreground hover:bg-accent",
+											)}
+										>
+											{item.name}
+										</MenubarTrigger>
+										{item.submenu ? (
+											<MenubarContent
+												onPointerEnter={() => handleMenuOpen(item.name)}
+												onPointerLeave={handleMenuClose}
+												className="bg-background/95 backdrop-blur-md border border-border rounded-xl shadow-lg min-w-[160px]"
+											>
+												{item.submenu.map((subItem) => (
+													<MenubarItem
+														key={subItem.name}
+														onClick={() => handleNavigation(subItem.href)}
+														className="cursor-pointer rounded-lg px-3 py-2"
+													>
+														{subItem.name}
+													</MenubarItem>
+												))}
+											</MenubarContent>
+										) : null}
+									</>
 								</MenubarMenu>
 							))}
 						</Menubar>
@@ -166,7 +255,7 @@ export function FloatingNav() {
 			{/* Mobile Navigation */}
 			<MobileMenu
 				items={NAVIGATION_ITEMS}
-				activeItem={activeSection}
+				isItemActive={(item) => isNavItemActive(item.href)}
 				onItemClick={handleNavigation}
 				className="md:hidden"
 				additionalContent={

@@ -7,12 +7,9 @@ test.describe("Navigation and Section Interaction", () => {
 
 	test.beforeEach(async ({ page }) => {
 		homePage = new HomePage(page);
+		// Navigation items that link to sections on the home page
 		navItems = [
 			{ name: "About", section: homePage.aboutSection },
-			{ name: "Resources", section: homePage.resourcesSection },
-			{ name: "Features", section: homePage.featuresSection },
-			{ name: "Comparison", section: homePage.comparisonSection },
-			{ name: "Chain Specs", section: homePage.chainSpecsSection },
 			{ name: "FAQ", section: homePage.faqSection },
 		];
 		await homePage.goto();
@@ -57,15 +54,9 @@ test.describe("Navigation and Section Interaction", () => {
 	});
 
 	test.describe("Section Scrolling", () => {
-		test("should scroll through all sections sequentially", async ({
-			page,
-		}) => {
+		test("should scroll through all sections sequentially", async () => {
 			const sections = [
 				{ id: "about", locator: homePage.aboutSection },
-				{ id: "resources", locator: homePage.resourcesSection },
-				{ id: "features", locator: homePage.featuresSection },
-				{ id: "comparison", locator: homePage.comparisonSection },
-				{ id: "chain-specs", locator: homePage.chainSpecsSection },
 				{ id: "faq", locator: homePage.faqSection },
 			];
 
@@ -83,28 +74,23 @@ test.describe("Navigation and Section Interaction", () => {
 			await page.getByRole("menuitem", { name: "About", exact: true }).click();
 			await expect(homePage.aboutSection).toBeInViewport({ timeout: 1000 });
 
-			await page
-				.getByRole("menuitem", { name: "Features", exact: true })
-				.first()
-				.click();
+			await page.getByRole("menuitem", { name: "FAQ", exact: true }).click();
 
 			// Final section should be visible
-			await expect(homePage.featuresSection).toBeInViewport({ timeout: 1000 });
+			await expect(homePage.faqSection).toBeInViewport({ timeout: 1000 });
 		});
 
 		test("should maintain section visibility after scroll", async ({
 			page,
 		}) => {
 			// Scroll to a section
-			await page
-				.getByRole("menuitem", { name: "Comparison", exact: true })
-				.click();
+			await page.getByRole("menuitem", { name: "FAQ", exact: true }).click();
 
 			// Verify it's visible
-			await expect(homePage.comparisonSection).toBeVisible({ timeout: 1000 });
+			await expect(homePage.faqSection).toBeVisible({ timeout: 1000 });
 
 			// Wait and check it's still visible
-			await expect(homePage.comparisonSection).toBeVisible({ timeout: 1000 });
+			await expect(homePage.faqSection).toBeVisible({ timeout: 1000 });
 		});
 	});
 
@@ -177,25 +163,16 @@ test.describe("Navigation and Section Interaction", () => {
 	});
 
 	test.describe("Section Content Interactions", () => {
-		test("should display comparison table in Comparison section", async ({
-			page,
-		}) => {
-			// Navigate to Comparison section
-			await page
-				.getByRole("menuitem", { name: "Comparison", exact: true })
-				.click();
+		test("should display FAQ accordion items", async ({ page }) => {
+			// Navigate to FAQ section
+			await page.getByRole("menuitem", { name: "FAQ", exact: true }).click();
 
-			// Verify Comparison section is visible
-			await expect(homePage.comparisonSection).toBeVisible({ timeout: 1000 });
+			// Verify FAQ section is visible
+			await expect(homePage.faqSection).toBeVisible({ timeout: 1000 });
 
-			// Check for table or comparison content
-			const hasContent =
-				(await homePage.comparisonSection.locator("table").count()) > 0 ||
-				(await homePage.comparisonSection
-					.locator("[class*='comparison']")
-					.count()) > 0;
-
-			expect(hasContent).toBeTruthy();
+			// Check for accordion content
+			const accordionItems = homePage.getFaqAccordionItems();
+			expect(await accordionItems.count()).toBeGreaterThan(0);
 		});
 	});
 
@@ -221,14 +198,10 @@ test.describe("Navigation and Section Interaction", () => {
 	});
 
 	test.describe("Responsive Navigation Behavior", () => {
-		test("should display all sections on desktop", async ({ page }) => {
+		test("should display all sections on desktop", async () => {
 			// Verify all major sections are in the DOM
 			await expect(homePage.heroSection).toBeAttached();
 			await expect(homePage.aboutSection).toBeAttached();
-			await expect(homePage.resourcesSection).toBeAttached();
-			await expect(homePage.featuresSection).toBeAttached();
-			await expect(homePage.comparisonSection).toBeAttached();
-			await expect(homePage.chainSpecsSection).toBeAttached();
 			await expect(homePage.faqSection).toBeAttached();
 		});
 
@@ -259,8 +232,8 @@ test.describe("Navigation and Section Interaction", () => {
 				await expect(item).toBeEnabled();
 			}
 
-			// Should have at least 5 menu items
-			expect(count).toBeGreaterThanOrEqual(5);
+			// Should have at least 4 menu items (Home, About, Developers, FAQ)
+			expect(count).toBeGreaterThanOrEqual(4);
 		});
 	});
 });
