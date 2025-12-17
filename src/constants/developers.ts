@@ -96,10 +96,7 @@ export const DEVELOPERS_PAGE_CONTENT = {
 					},
 					{
 						provider: "Dotters",
-						urls: [
-							"wss://asset-hub-paseo.dotters.network",
-							"https://eth-asset-hub-paseo.dotters.network",
-						],
+						urls: ["wss://asset-hub-paseo.dotters.network"],
 					},
 					{
 						provider: "Stakeworld",
@@ -162,6 +159,20 @@ export const DEVELOPERS_PAGE_CONTENT = {
 					{
 						provider: "Amforc",
 						urls: ["wss://collectives-paseo.rpc.amforc.com"],
+					},
+				],
+			},
+			{
+				name: "Eth Asset Hub",
+				network: "eth-asset-hub",
+				endpoints: [
+					{
+						provider: "Dotters",
+						urls: ["https://eth-asset-hub-paseo.dotters.network"],
+					},
+					{
+						provider: "Polkadot Hub",
+						urls: ["https://services.polkadothub-rpc.com/testnet"],
 					},
 				],
 			},
