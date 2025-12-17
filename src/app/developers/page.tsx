@@ -4,6 +4,7 @@ import { ChainSpecsSection } from "@/components/sections/ChainSpecsSection";
 import { ComparisonSection } from "@/components/sections/ComparisonSection";
 import {
 	DevelopersHeroSection,
+	FaucetSection,
 	RpcEndpointsSection,
 } from "@/components/sections/developers";
 import { ResourcesSection } from "@/components/sections/ResourcesSection";
@@ -19,6 +20,7 @@ export default function DevelopersPage() {
 		<div className="min-h-screen bg-background text-foreground">
 			<FloatingNav />
 			<DevelopersHeroSection />
+			<FaucetSection />
 			<RpcEndpointsSection />
 			<ChainSpecsSection />
 			<ComparisonSection />

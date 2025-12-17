@@ -11,12 +11,25 @@ interface ChainEndpoints {
 	readonly endpoints: readonly RpcEndpoint[];
 }
 
+// Faucet structure
+interface FaucetInfo {
+	readonly name: string;
+	readonly description: string;
+	readonly url: string;
+	readonly networks: readonly string[];
+}
+
 // Developers page content structure
 interface DevelopersPageContent {
 	readonly hero: {
 		readonly title: string;
 		readonly description: string;
 		readonly badge: string;
+	};
+	readonly faucet: {
+		readonly title: string;
+		readonly description: string;
+		readonly faucets: readonly FaucetInfo[];
 	};
 	readonly rpcEndpoints: {
 		readonly title: string;
@@ -31,6 +44,27 @@ export const DEVELOPERS_PAGE_CONTENT = {
 		description:
 			"Everything you need to build, test, and deploy on Paseo testnet. Access RPC endpoints, download chain specs, and explore comprehensive documentation.",
 		badge: "For Developers",
+	},
+	faucet: {
+		title: "Get Test Tokens",
+		description:
+			"Request free PAS tokens to start building and testing your applications on Paseo testnet.",
+		faucets: [
+			{
+				name: "Polkadot Faucet",
+				description:
+					"Official faucet for Paseo testnet. Get PAS tokens instantly via Matrix authentication.",
+				url: "https://faucet.polkadot.io/",
+				networks: [
+					"Paseo Relay Chain",
+					"Asset Hub",
+					"Bridge Hub",
+					"Coretime",
+					"People",
+					"Collectives",
+				],
+			},
+		],
 	},
 	rpcEndpoints: {
 		title: "RPC Endpoints",

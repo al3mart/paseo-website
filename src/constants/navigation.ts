@@ -13,6 +13,7 @@ export interface MenuItem {
 
 // Developer page submenu items
 export const DEVELOPER_SUBMENU_ITEMS: readonly SubMenuItem[] = [
+	{ name: "Faucet", href: "/developers#faucet" },
 	{ name: "RPC Endpoints", href: "/developers#rpc-endpoints" },
 	{ name: "Chain Specs", href: "/developers#chain-specs" },
 	{ name: "Network Comparison", href: "/developers#network-comparison" },
