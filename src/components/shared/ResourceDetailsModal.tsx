@@ -12,7 +12,7 @@ import { CopyButton } from "./CopyButton";
 
 export interface DetailField {
 	label: string;
-	value: string | readonly string[];
+	value?: string | readonly string[];
 	type?: "text" | "copyable" | "link";
 	icon?: string;
 }
@@ -47,6 +47,18 @@ export function ResourceDetailsModal({
 	data,
 }: ResourceDetailsModalProps) {
 	const renderField = (field: DetailField) => {
+		// Handle fields without value (label-only fields)
+		if (field.value === undefined) {
+			return (
+				<div key={field.label}>
+					<p className="text-sm text-muted-foreground">
+						{field.icon && `${field.icon} `}
+						{field.label}
+					</p>
+				</div>
+			);
+		}
+
 		const isArray = Array.isArray(field.value);
 		const values: string[] = isArray
 			? [...field.value]

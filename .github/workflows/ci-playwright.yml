@@ -16,4 +16,8 @@ concurrency:
 
 jobs:
   playwright-tests:
-    uses: zondax/_workflows/.github/workflows/_checks-playwright.yaml@v3
+    needs:
+      - ts-checks-linux
+    uses: zondax/_workflows/.github/workflows/_checks-playwright.yaml@v4
+    with:
+      environment: dev
