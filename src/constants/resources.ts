@@ -1,13 +1,20 @@
 import type { LucideIcon } from "lucide-react";
-import { Blocks, Droplets, FileText, Globe, Rocket } from "lucide-react";
+import {
+	Blocks,
+	Droplets,
+	FileText,
+	Globe,
+	Rocket,
+	Search,
+} from "lucide-react";
 import { URLS } from "./urls";
 
 // Resource modal field structure
-interface ModalField {
+export interface ModalField {
 	readonly label: string;
-	readonly value: string | readonly string[];
+	readonly value?: string | readonly string[];
 	readonly icon: string;
-	readonly type?: "copyable";
+	readonly type?: "text" | "copyable" | "link";
 }
 
 // Resource modal action structure
@@ -17,7 +24,7 @@ interface ModalAction {
 }
 
 // Resource modal data structure
-interface ModalData {
+export interface ModalData {
 	readonly sections: readonly {
 		readonly fields: readonly ModalField[];
 	}[];
@@ -25,7 +32,7 @@ interface ModalData {
 }
 
 // Resource item structure
-interface Resource {
+export interface Resource {
 	readonly icon: LucideIcon;
 	readonly title: string;
 	readonly description: string;
@@ -126,6 +133,37 @@ export const RESOURCES = [
 				{
 					label: "Start building with Smart Contracts",
 					url: URLS.polkadotSmartContracts,
+				},
+			],
+		},
+	},
+	{
+		icon: Search,
+		title: "Explorers",
+		description:
+			"Browse transactions, blocks, and accounts on Paseo network with blockchain explorers.",
+		href: undefined,
+		isExternal: false,
+		buttonLabel: "View Explorers",
+		modalData: {
+			sections: [
+				{
+					fields: [
+						{
+							label: "Choose a block explorer to get started",
+							icon: "🔎",
+						},
+					],
+				},
+			],
+			actions: [
+				{
+					label: "Open Routescan",
+					url: URLS.explorers.routescan,
+				},
+				{
+					label: "Open Subscan",
+					url: URLS.explorers.subscan,
 				},
 			],
 		},

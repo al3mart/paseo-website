@@ -63,6 +63,12 @@ export const URLS = {
 			"https://paseo-r2.zondax.ch/chain-specs/paseo-collectives.raw.smol.json",
 	},
 
+	// Explorers
+	explorers: {
+		routescan: "https://polkadot.testnet.routescan.io/",
+		subscan: "https://paseo.subscan.io/",
+	},
+
 	// Resources
 	faucet: "https://faucet.polkadot.io/",
 	onPop: "https://onpop.io/",

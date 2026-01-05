@@ -17,6 +17,7 @@
 		"test:console": "playwright test console-errors",
 		"test:coverage": "vitest run --coverage",
 		"test:e2e": "playwright test",
+		"test:e2e:build": "pnpm build && playwright test",
 		"test:e2e:debug": "playwright test e2e --debug",
 		"test:e2e:install": "playwright install",
 		"test:e2e:report": "playwright show-report",
@@ -50,7 +51,7 @@
 		"tailwind-merge": "^3.3.1"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.1.2",
+		"@biomejs/biome": "2.3.10",
 		"@playwright/test": "^1.55.1",
 		"@tailwindcss/postcss": "^4",
 		"@types/node": "^20",
