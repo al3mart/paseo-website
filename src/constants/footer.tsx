@@ -3,6 +3,8 @@ import { LuGithub } from "react-icons/lu";
 import { RiTwitterXFill } from "react-icons/ri";
 import { URLS } from "./urls";
 
+const currentYear = new Date().getFullYear();
+
 export interface FooterLink {
 	readonly label: string;
 	readonly href: string;
@@ -121,7 +123,7 @@ export const FOOTER_CONTENT = {
 		},
 	},
 	legal: {
-		copyright: "© 2025",
+		copyright: `© ${currentYear}`,
 		privacyPolicy: {
 			label: "Privacy Policy",
 			href: URLS.zondaxPrivacy,
