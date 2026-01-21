@@ -1,8 +1,14 @@
 import { URLS } from "./urls";
 
-interface FAQItem {
+export interface FAQLink {
+	readonly url: string;
+	readonly label?: string;
+}
+
+export interface FAQItem {
 	readonly question: string;
 	readonly answer: string;
+	readonly links?: readonly FAQLink[];
 }
 
 // FAQ Content
@@ -12,7 +18,9 @@ export const FAQ_CONTENT = {
 	items: [
 		{
 			question: "How do I obtain coretime in Paseo?",
-			answer: `One can obtain coretime in Paseo by participating on coretime sales, just like in production. After getting some tokens from the faucet one can easily participate in sales via: ${URLS.regionXHub}`,
+			answer:
+				"One can obtain coretime in Paseo by participating on coretime sales, just like in production. Learn more about purchasing, renewing, and managing coretime.",
+			links: [{ url: "/coretime", label: "View Coretime Guide" }],
 		},
 		{
 			question:
@@ -22,20 +30,29 @@ export const FAQ_CONTENT = {
 		},
 		{
 			question: "Who is managing Paseo?",
-			answer: `The maintainers of the testnet are a distributed group of contributors taking care of the testnet runtimes and its infrastructure. The exact list can be seen at: ${URLS.githubGovernance}/`,
+			answer:
+				"The maintainers of the testnet are a distributed group of contributors taking care of the testnet runtimes and its infrastructure.",
+			links: [{ url: URLS.githubGovernance, label: "View Contributors" }],
 		},
 		{
 			question: "Are there any SLAs for incident management?",
-			answer: `Yes, find them at: ${URLS.githubSLA}`,
+			answer: "Yes, we have documented SLAs for incident management.",
+			links: [{ url: URLS.githubSLA, label: "View SLAs" }],
 		},
 		{
 			question:
 				"Will it be possible to access the logs from the Relay and System chains?",
-			answer: `Yes, most infrastructure providers send logs to a centralized logging service that can be accessed at: ${URLS.grafanaLogs}`,
+			answer:
+				"Yes, most infrastructure providers send logs to a centralized logging service.",
+			links: [{ url: URLS.grafanaLogs, label: "Access Logs" }],
 		},
 		{
 			question: "I am a bit lost or I need further support, what do I do?",
-			answer: `The best ways of contacting the involved contributors are: Open an issue at: ${URLS.githubSupport} or Join the public paseo matrix room: ${URLS.matrixSupport}`,
+			answer: "The best ways of contacting the involved contributors are:",
+			links: [
+				{ url: URLS.githubSupport, label: "Open an Issue" },
+				{ url: URLS.matrixSupport, label: "Join Matrix Room" },
+			],
 		},
 		{
 			question: "My balance was reduced to 5K PAS suddenly, what's going on?",

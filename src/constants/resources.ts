@@ -1,6 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import {
 	Blocks,
+	Clock,
 	Droplets,
 	FileText,
 	Globe,
@@ -62,6 +63,16 @@ export const RESOURCES = [
 		href: "/pas",
 		isExternal: false,
 		buttonLabel: "Explore",
+		modalData: undefined,
+	},
+	{
+		icon: Clock,
+		title: "How to Obtain Coretime",
+		description:
+			"Learn how to purchase, assign, and manage coretime for your parachain on Paseo.",
+		href: "/coretime",
+		isExternal: false,
+		buttonLabel: "Learn More",
 		modalData: undefined,
 	},
 	{
