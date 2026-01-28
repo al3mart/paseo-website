@@ -6,7 +6,10 @@ export default defineConfig({
 		environment: "happy-dom",
 		globals: true,
 		setupFiles: ["./vitest.setup.ts"],
-		include: ["src/**/*.{test,spec}.{js,ts,jsx,tsx}"],
+		include: [
+			"src/**/*.{test,spec}.{js,ts,jsx,tsx}",
+			"scripts/**/*.{test,spec}.{js,ts}",
+		],
 		exclude: ["node_modules", ".next", "e2e", "playwright-report"],
 		coverage: {
 			provider: "v8",

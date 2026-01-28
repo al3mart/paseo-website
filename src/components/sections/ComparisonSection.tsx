@@ -1,8 +1,8 @@
 "use client";
 
+import { Check, ExternalLink, X } from "lucide-react";
 import { Logo } from "@/components/shared/Logo";
 import { COMPARISON_CONTENT } from "@/constants/content";
-import { Check, ExternalLink, X } from "lucide-react";
 
 export function ComparisonSection() {
 	return (

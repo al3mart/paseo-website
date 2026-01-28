@@ -1,3 +1,4 @@
+import { SYNCED_COMPARISON_DATA } from "./comparison-data";
 import { URLS } from "./urls";
 
 interface Link {
@@ -99,106 +100,18 @@ interface ComparisonContent {
 	readonly footer: string;
 }
 
-// Comparison section content
+// Comparison section content - uses synced data from paseo-network/runtimes
 export const COMPARISON_CONTENT = {
 	title: "Testnet vs Production",
 	description:
 		"The following section presents the differences between testnet and production runtimes. By showing users the variations in available features and operational costs, users can better adjust their expectations when transitioning from testnet to production environments.",
 	features: {
 		title: "Features",
-		items: [
-			{
-				feature: "Agile Coretime",
-				link: URLS.polkadotFellowsAgileCoretime as string | undefined,
-				paseo: true,
-				kusama: true,
-				polkadot: true,
-			},
-			{
-				feature: "Async Backing",
-				link: URLS.polkadotWikiAsyncBacking as string | undefined,
-				paseo: true,
-				kusama: true,
-				polkadot: true,
-			},
-			{
-				feature: "Elastic Scaling",
-				link: URLS.polkadotFellowsElasticScaling as string | undefined,
-				paseo: true,
-				kusama: true,
-				polkadot: true,
-			},
-			{
-				feature: "Asset Hub Migration",
-				link: undefined,
-				paseo: true,
-				kusama: true,
-				polkadot: true,
-			},
-			{
-				feature: "PolkaVM Contracts",
-				link: undefined,
-				paseo: true,
-				kusama: true,
-				polkadot: false,
-			},
-			{
-				feature: "Contracts: ERC-20 Precompile",
-				link: undefined,
-				paseo: true,
-				kusama: true,
-				polkadot: false,
-			},
-			{
-				feature: "Contracts: XCM Precompile",
-				link: undefined,
-				paseo: true,
-				kusama: true,
-				polkadot: false,
-			},
-			{
-				feature: "Coretime Interlude Period",
-				link: undefined,
-				paseo: "2 days",
-				kusama: "7 days",
-				polkadot: "7 days",
-			},
-		],
+		items: SYNCED_COMPARISON_DATA.features.items,
 	},
 	costs: {
 		title: "Costs",
-		items: [
-			{
-				feature: "Parachain ID Reservation",
-				paseo: "100 PAS",
-				kusama: "4 KSM",
-				polkadot: "100 DOT",
-			},
-			{
-				feature: "Parachain Registration",
-				paseo: "~3,200 PAS",
-				kusama: "~105 KSM",
-				polkadot: "~3,200 DOT",
-			},
-			{
-				feature: "Asset Creation",
-				paseo: "~0.0017 + 0.4 Deposit",
-				kusama: "~0.00012 + 0.013 Deposit",
-				polkadot: "~0.0018 + 0.4 Deposit",
-			},
-			{
-				feature: "Identity Creation",
-				paseo: "~0.002 + 0.2 Deposit",
-				kusama: "~0.00009 + 0.006 Deposit",
-				polkadot: "~0.002 + 0.2 Deposit",
-			},
-			{
-				feature: "Contract Instantiation (12K polkavm blob)",
-				paseo: "~0.12 + 0.6 Deposit",
-				kusama: "~0.004 + 0.02 Deposit",
-				polkadot: "Not Available",
-			},
-		],
+		items: SYNCED_COMPARISON_DATA.costs.items,
 	},
 	footer:
 		"Paseo serves as the perfect testing ground before deploying to Polkadot mainnet, offering identical technology with zero financial risk.",

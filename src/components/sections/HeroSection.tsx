@@ -1,12 +1,12 @@
 "use client";
 
+import { ExternalLink, FileText } from "lucide-react";
 import { Hero } from "@/components/shared/Hero";
 import { PrimaryButton } from "@/components/shared/PrimaryButton";
 import { SecondaryButton } from "@/components/shared/SecondaryButton";
 import { StatCard } from "@/components/shared/StatCard";
 import { HERO_CONTENT } from "@/constants/content";
 import { HERO_STATS } from "@/constants/stats";
-import { ExternalLink, FileText } from "lucide-react";
 
 export function HeroSection() {
 	return (
