@@ -1,5 +1,13 @@
 "use client";
 
+import { ExternalLink } from "lucide-react";
+import {
+	type RefObject,
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
 import { MobileMenu } from "@/components/layouts/MobileMenu";
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { Button } from "@/components/ui/button";
@@ -17,14 +25,6 @@ import {
 } from "@/constants/navigation";
 import { URLS } from "@/constants/urls";
 import { cn } from "@/lib/utils";
-import { ExternalLink } from "lucide-react";
-import {
-	useCallback,
-	useEffect,
-	useRef,
-	useState,
-	type RefObject,
-} from "react";
 
 export function FloatingNav() {
 	const [activeSection, setActiveSection] = useState("hero");
@@ -145,7 +145,7 @@ export function FloatingNav() {
 			if (!isHydrated) return false;
 
 			if (href.startsWith("/")) {
-				return currentPath === href || currentPath.startsWith(href + "#");
+				return currentPath === href || currentPath.startsWith(`${href}#`);
 			}
 			return (
 				href.startsWith("#") &&
@@ -195,46 +195,44 @@ export function FloatingNav() {
 						>
 							{NAVIGATION_ITEMS.map((item) => (
 								<MenubarMenu key={item.name} value={item.name}>
-									<>
-										<MenubarTrigger
-											onPointerEnter={() =>
-												item.submenu ? handleMenuOpen(item.name) : undefined
-											}
-											onPointerLeave={() =>
-												item.submenu ? handleMenuClose() : undefined
-											}
-											onClick={(e) => {
-												e.preventDefault();
-												handleNavigation(item.href);
-											}}
-											className={cn(
-												"h-10 px-4 rounded-full text-sm cursor-pointer font-medium w-fit whitespace-nowrap",
-												`transition-all duration-${ANIMATION_DURATION}`,
-												isNavItemActive(item.href)
-													? "bg-primary text-primary-foreground"
-													: "text-muted-foreground hover:text-foreground hover:bg-accent",
-											)}
+									<MenubarTrigger
+										onPointerEnter={() =>
+											item.submenu ? handleMenuOpen(item.name) : undefined
+										}
+										onPointerLeave={() =>
+											item.submenu ? handleMenuClose() : undefined
+										}
+										onClick={(e) => {
+											e.preventDefault();
+											handleNavigation(item.href);
+										}}
+										className={cn(
+											"h-10 px-4 rounded-full text-sm cursor-pointer font-medium w-fit whitespace-nowrap",
+											`transition-all duration-${ANIMATION_DURATION}`,
+											isNavItemActive(item.href)
+												? "bg-primary text-primary-foreground"
+												: "text-muted-foreground hover:text-foreground hover:bg-accent",
+										)}
+									>
+										{item.name}
+									</MenubarTrigger>
+									{item.submenu ? (
+										<MenubarContent
+											onPointerEnter={() => handleMenuOpen(item.name)}
+											onPointerLeave={handleMenuClose}
+											className="bg-background/95 backdrop-blur-md border border-border rounded-xl shadow-lg min-w-[160px]"
 										>
-											{item.name}
-										</MenubarTrigger>
-										{item.submenu ? (
-											<MenubarContent
-												onPointerEnter={() => handleMenuOpen(item.name)}
-												onPointerLeave={handleMenuClose}
-												className="bg-background/95 backdrop-blur-md border border-border rounded-xl shadow-lg min-w-[160px]"
-											>
-												{item.submenu.map((subItem) => (
-													<MenubarItem
-														key={subItem.name}
-														onClick={() => handleNavigation(subItem.href)}
-														className="cursor-pointer rounded-lg px-3 py-2"
-													>
-														{subItem.name}
-													</MenubarItem>
-												))}
-											</MenubarContent>
-										) : null}
-									</>
+											{item.submenu.map((subItem) => (
+												<MenubarItem
+													key={subItem.name}
+													onClick={() => handleNavigation(subItem.href)}
+													className="cursor-pointer rounded-lg px-3 py-2"
+												>
+													{subItem.name}
+												</MenubarItem>
+											))}
+										</MenubarContent>
+									) : null}
 								</MenubarMenu>
 							))}
 						</Menubar>

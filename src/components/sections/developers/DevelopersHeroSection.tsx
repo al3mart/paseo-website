@@ -1,12 +1,12 @@
 "use client";
 
+import { Code2, ExternalLink, FileText } from "lucide-react";
 import { Hero } from "@/components/shared/Hero";
 import { PrimaryButton } from "@/components/shared/PrimaryButton";
 import { SecondaryButton } from "@/components/shared/SecondaryButton";
 import { Badge } from "@/components/ui/badge";
 import { DEVELOPERS_PAGE_CONTENT } from "@/constants/developers";
 import { URLS } from "@/constants/urls";
-import { Code2, ExternalLink, FileText } from "lucide-react";
 
 export function DevelopersHeroSection() {
 	return (

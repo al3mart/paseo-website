@@ -1,10 +1,10 @@
 "use client";
 
+import { Droplets, ExternalLink, Sparkles } from "lucide-react";
 import { FaucetCard } from "@/components/shared/FaucetCard";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DEVELOPERS_PAGE_CONTENT } from "@/constants/developers";
-import { Droplets, ExternalLink, Sparkles } from "lucide-react";
 
 export function FaucetSection() {
 	return (

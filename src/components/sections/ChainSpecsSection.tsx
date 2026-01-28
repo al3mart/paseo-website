@@ -1,5 +1,7 @@
 "use client";
 
+import { Download } from "lucide-react";
+import { useState } from "react";
 import { InfoCard } from "@/components/shared/InfoCard";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,8 +12,6 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { CHAIN_SPECS_CONTENT } from "@/constants/chain-specs";
-import { Download } from "lucide-react";
-import { useState } from "react";
 
 function getInitialSelectedFiles(): Record<string, string> {
 	const initial: Record<string, string> = {};

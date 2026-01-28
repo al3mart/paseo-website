@@ -1,0 +1,33 @@
+# ============================================================================
+# WORKFLOW FOR paseo-network/runtimes REPOSITORY
+# ============================================================================
+# This file should be added to the paseo-network/runtimes repository at:
+# .github/workflows/trigger-website-sync.yml
+#
+# REQUIRED SETUP:
+# 1. Create a GitHub Personal Access Token (PAT) with 'repo' scope
+# 2. Add it as a secret named PASEO_WEBSITE_DISPATCH_TOKEN in the runtimes repo
+# ============================================================================
+
+name: 'Trigger Website Sync'
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'README.md'
+
+jobs:
+  trigger-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger paseo-website sync
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          # Token with repo access to paseo-website (or Zondax/paseo-website)
+          token: ${{ secrets.PASEO_WEBSITE_DISPATCH_TOKEN }}
+          # Target repository - update this to the correct org/repo
+          repository: Zondax/paseo-website
+          event-type: sync-comparison-data
+          client-payload: '{"source": "runtimes-readme-update", "ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'

@@ -73,6 +73,8 @@ export const URLS = {
 	faucet: "https://faucet.polkadot.io/",
 	onPop: "https://onpop.io/",
 	pdp: "https://www.deploypolkadot.xyz/",
+	pdpCoretimeAutoRenewal:
+		"https://www.deploypolkadot.xyz/coretime-auto-renewal",
 	polkadotParachainsGuide:
 		"https://docs.polkadot.com/develop/parachains/intro-polkadot-sdk/",
 	polkadotSmartContracts: "https://docs.polkadot.com/develop/smart-contracts/",

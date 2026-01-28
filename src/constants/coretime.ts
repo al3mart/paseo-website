@@ -1,5 +1,11 @@
 import type { LucideIcon } from "lucide-react";
 import { RefreshCw, ShoppingCart, Wrench, Zap } from "lucide-react";
+import { URLS } from "./urls";
+
+export interface CoretimeStepLink {
+	readonly url: string;
+	readonly label: string;
+}
 
 export interface CoretimeStep {
 	readonly number: number;
@@ -7,6 +13,7 @@ export interface CoretimeStep {
 	readonly title: string;
 	readonly content: readonly string[];
 	readonly note?: string;
+	readonly link?: CoretimeStepLink;
 }
 
 export interface CoretimeCTA {
@@ -45,6 +52,10 @@ export const CORETIME_STEPS: readonly CoretimeStep[] = [
 			"If you prefer automatic renewals, enable them with broker.enableAutoRenewal. This will renew your core each cycle as long as your parachain's sovereign account has sufficient funds to pay for the renewal.",
 		],
 		note: "Autorenewal should be called using the chain sovereign account on Coretime. Due to the PAS balance restriction, teams requiring auto-renewal should contact the Paseo support team to ensure adequate funds in their sovereign account + an open HRMP channel with the coretime chain.",
+		link: {
+			url: URLS.pdpCoretimeAutoRenewal,
+			label: "Obtain the calldata spec for your chain",
+		},
 	},
 	{
 		number: 3,

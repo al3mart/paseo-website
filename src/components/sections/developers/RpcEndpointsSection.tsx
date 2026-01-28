@@ -1,16 +1,16 @@
 "use client";
 
+import { Server } from "lucide-react";
+import { useState } from "react";
 import { CopyButton } from "@/components/shared/CopyButton";
 import { InfoCard } from "@/components/shared/InfoCard";
 import {
-	ResourceDetailsModal,
 	type ResourceDetailsData,
+	ResourceDetailsModal,
 } from "@/components/shared/ResourceDetailsModal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DEVELOPERS_PAGE_CONTENT } from "@/constants/developers";
-import { Server } from "lucide-react";
-import { useState } from "react";
 
 interface SelectedChain {
 	name: string;
