@@ -26,6 +26,19 @@ export function CoretimeSection() {
 						note={step.note}
 						layout="inline"
 						className="hover:shadow-lg"
+						footer={
+							step.link && (
+								<a
+									href={step.link.url}
+									target="_blank"
+									rel="noopener noreferrer"
+									className="inline-flex items-center gap-2 text-primary hover:underline font-medium"
+								>
+									{step.link.label}
+									<ExternalLink className="w-4 h-4" />
+								</a>
+							)
+						}
 					/>
 				))}
 
