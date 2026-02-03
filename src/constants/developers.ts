@@ -174,6 +174,14 @@ export const DEVELOPERS_PAGE_CONTENT = {
 						provider: "Polkadot Hub",
 						urls: ["https://services.polkadothub-rpc.com/testnet"],
 					},
+					{
+						provider: "IBP",
+						urls: ["http://eth-asset-hub-paseo.ibp.network/"],
+					},
+					{
+						provider: "Polkadot",
+						urls: ["https://eth-rpc-testnet.polkadot.io/"],
+					},
 				],
 			},
 		],
