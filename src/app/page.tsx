@@ -5,6 +5,7 @@ import { FAQSection } from "@/components/sections/FAQSection";
 import { FeaturesSection } from "@/components/sections/FeaturesSection";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { LogoSection } from "@/components/sections/LogoSection";
+import { UsersSection } from "@/components/sections/UsersSection";
 
 export default function Home() {
 	return (
@@ -12,6 +13,7 @@ export default function Home() {
 			<FloatingNav />
 			<HeroSection />
 			<AboutSection />
+			<UsersSection />
 			<FeaturesSection />
 			<LogoSection />
 			<FAQSection />
