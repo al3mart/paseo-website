@@ -1,6 +1,54 @@
 "use client";
 
 import { PASEO_USERS } from "@/constants/users";
+import Image from "next/image";
+
+function UserLogo({
+	src,
+	srcDark,
+	alt,
+	width,
+	height,
+	className,
+}: {
+	src: string;
+	srcDark?: string;
+	alt: string;
+	width: number;
+	height: number;
+	className: string;
+}) {
+	if (srcDark) {
+		return (
+			<>
+				<Image
+					src={src}
+					alt={alt}
+					width={width}
+					height={height}
+					className={`${className} dark:hidden`}
+				/>
+				<Image
+					src={srcDark}
+					alt={alt}
+					width={width}
+					height={height}
+					className={`${className} hidden dark:block`}
+				/>
+			</>
+		);
+	}
+
+	return (
+		<Image
+			src={src}
+			alt={alt}
+			width={width}
+			height={height}
+			className={className}
+		/>
+	);
+}
 
 export function UsersSection() {
 	return (
@@ -15,11 +63,42 @@ export function UsersSection() {
 					</p>
 				</div>
 
-				<div className="flex flex-wrap justify-center gap-4">
+				<div className="flex flex-wrap justify-center gap-x-10 gap-y-6">
 					{PASEO_USERS.map((user) => {
-						const content = (
-							<span className="text-sm font-medium opacity-80 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-								{user.name}
+						const hasLogo = "logo" in user && user.logo;
+						const hasDarkLogo = "logoDark" in user && user.logoDark;
+						const shouldInvert =
+							"darkInvert" in user && user.darkInvert;
+						const isWordmark = "isWordmark" in user && user.isWordmark;
+
+						const invertClass = shouldInvert ? "dark:invert" : "";
+						const logoClass =
+							`object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300 ${invertClass}`;
+
+						const content = isWordmark ? (
+							<UserLogo
+								src={user.logo!}
+								srcDark={hasDarkLogo ? user.logoDark : undefined}
+								alt={user.name}
+								width={120}
+								height={32}
+								className={`h-6 w-auto max-w-[120px] ${logoClass}`}
+							/>
+						) : (
+							<span className="flex items-center gap-2">
+								{hasLogo && (
+									<UserLogo
+										src={user.logo!}
+										srcDark={hasDarkLogo ? user.logoDark : undefined}
+										alt={`${user.name} logo`}
+										width={56}
+										height={56}
+										className={`w-7 h-7 ${logoClass}`}
+									/>
+								)}
+								<span className="text-sm font-medium opacity-70 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+									{user.name}
+								</span>
 							</span>
 						);
 
@@ -30,7 +109,8 @@ export function UsersSection() {
 									href={user.url}
 									target="_blank"
 									rel="noopener noreferrer"
-									className="group flex items-center justify-center px-5 py-3 bg-background/40 rounded-lg border border-border/40 hover:border-primary/30 hover:bg-background/60 transition-all duration-300 shadow-sm hover:shadow-md"
+									className="group flex items-center justify-center py-3 hover:scale-105 transition-transform duration-300"
+									title={user.name}
 								>
 									{content}
 								</a>
@@ -40,7 +120,7 @@ export function UsersSection() {
 						return (
 							<div
 								key={user.name}
-								className="group flex items-center justify-center px-5 py-3 bg-background/40 rounded-lg border border-border/40 transition-all duration-300 shadow-sm"
+								className="group flex items-center justify-center py-3"
 							>
 								{content}
 							</div>
