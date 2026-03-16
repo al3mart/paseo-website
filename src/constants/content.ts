@@ -28,7 +28,7 @@ export const HERO_CONTENT = {
 		},
 		secondary: {
 			label: "Documentation",
-			href: URLS.docs,
+			href: URLS.github,
 		},
 	},
 } as const satisfies HeroContent;
@@ -210,7 +210,7 @@ export const COMMUNITY_CONTENT = {
 			},
 			secondary: {
 				label: "View PAS Documents",
-				href: URLS.docsGovernance,
+				href: URLS.githubGovernance,
 			},
 		},
 	},

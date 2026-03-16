@@ -67,13 +67,11 @@ export function UsersSection() {
 					{PASEO_USERS.map((user) => {
 						const hasLogo = "logo" in user && user.logo;
 						const hasDarkLogo = "logoDark" in user && user.logoDark;
-						const shouldInvert =
-							"darkInvert" in user && user.darkInvert;
+						const shouldInvert = "darkInvert" in user && user.darkInvert;
 						const isWordmark = "isWordmark" in user && user.isWordmark;
 
 						const invertClass = shouldInvert ? "dark:invert" : "";
-						const logoClass =
-							`object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300 ${invertClass}`;
+						const logoClass = `object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300 ${invertClass}`;
 
 						const content = isWordmark ? (
 							<UserLogo

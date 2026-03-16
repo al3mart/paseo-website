@@ -5,10 +5,6 @@ export const URLS = {
 	grafanaLogs: "https://grafana.paseo.site/",
 	regionXHub: "https://hub.regionx.tech/?network=paseo",
 
-	// Documentation
-	docs: "https://docs.paseo.network",
-	docsGovernance: "https://docs.paseo.network/governance",
-
 	// GitHub - Paseo Network
 	github: "https://github.com/paseo-network",
 	githubChainSpecs: "https://github.com/paseo-network/paseo-chain-specs",
