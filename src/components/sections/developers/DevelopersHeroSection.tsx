@@ -36,7 +36,7 @@ export function DevelopersHeroSection() {
 					</PrimaryButton>
 					<SecondaryButton
 						className="group"
-						onClick={() => window.open(URLS.docs, "_blank")}
+						onClick={() => window.open(URLS.github, "_blank")}
 					>
 						<FileText className="mr-2 h-4 w-4" />
 						Documentation
