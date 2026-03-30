@@ -16,6 +16,6 @@ concurrency:
 
 jobs:
   link-checks:
-    uses: zondax/_workflows/.github/workflows/_checks-links.yaml@v5
+    uses: zondax/_workflows/.github/workflows/_checks-links.yaml@v6
     with:
       package_manager: pnpm
