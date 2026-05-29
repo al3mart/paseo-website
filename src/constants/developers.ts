@@ -75,7 +75,10 @@ export const DEVELOPERS_PAGE_CONTENT = {
 				name: "Paseo Relay Chain",
 				network: "paseo",
 				endpoints: [
-					{ provider: "IBP Network", urls: ["wss://rpc.ibp.network/paseo"] },
+					{
+						provider: "Zondax",
+						urls: ["https://api.zondax.ch/pas/relay/node/rpc"],
+					},
 					{ provider: "Dwellir", urls: ["wss://paseo-rpc.n.dwellir.com"] },
 					{ provider: "Dotters", urls: ["wss://paseo.dotters.network"] },
 					{ provider: "Amforc", urls: ["wss://paseo.rpc.amforc.com"] },
@@ -87,8 +90,8 @@ export const DEVELOPERS_PAGE_CONTENT = {
 				network: "asset-hub",
 				endpoints: [
 					{
-						provider: "IBP Network",
-						urls: ["wss://sys.ibp.network/asset-hub-paseo"],
+						provider: "Zondax",
+						urls: ["https://api.zondax.ch/pas/assethub/node/rpc"],
 					},
 					{
 						provider: "Dwellir",
@@ -113,8 +116,8 @@ export const DEVELOPERS_PAGE_CONTENT = {
 				network: "bridge-hub",
 				endpoints: [
 					{
-						provider: "IBP Network",
-						urls: ["wss://sys.ibp.network/bridgehub-paseo"],
+						provider: "Zondax",
+						urls: ["https://api.zondax.ch/pas/bridgehub/node/rpc"],
 					},
 					{
 						provider: "Dotters",
@@ -127,8 +130,8 @@ export const DEVELOPERS_PAGE_CONTENT = {
 				network: "coretime",
 				endpoints: [
 					{
-						provider: "IBP Network",
-						urls: ["wss://sys.ibp.network/coretime-paseo"],
+						provider: "Zondax",
+						urls: ["https://api.zondax.ch/pas/coretime/node/rpc"],
 					},
 					{
 						provider: "Dotters",
@@ -141,8 +144,8 @@ export const DEVELOPERS_PAGE_CONTENT = {
 				network: "people",
 				endpoints: [
 					{
-						provider: "IBP Network",
-						urls: ["wss://sys.ibp.network/people-paseo"],
+						provider: "Zondax",
+						urls: ["https://api.zondax.ch/pas/people/node/rpc"],
 					},
 					{ provider: "Dotters", urls: ["wss://people-paseo.dotters.network"] },
 					{ provider: "Amforc", urls: ["wss://people-paseo.rpc.amforc.com"] },
@@ -152,6 +155,10 @@ export const DEVELOPERS_PAGE_CONTENT = {
 				name: "Collectives",
 				network: "collectives",
 				endpoints: [
+					{
+						provider: "Zondax",
+						urls: ["https://api.zondax.ch/pas/collectives/node/rpc"],
+					},
 					{
 						provider: "Dotters",
 						urls: ["wss://collectives-paseo.dotters.network"],
@@ -173,10 +180,6 @@ export const DEVELOPERS_PAGE_CONTENT = {
 					{
 						provider: "Polkadot Hub",
 						urls: ["https://services.polkadothub-rpc.com/testnet"],
-					},
-					{
-						provider: "IBP",
-						urls: ["http://eth-asset-hub-paseo.ibp.network/"],
 					},
 					{
 						provider: "Polkadot",
