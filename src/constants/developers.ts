@@ -77,7 +77,7 @@ export const DEVELOPERS_PAGE_CONTENT = {
 				endpoints: [
 					{
 						provider: "Zondax",
-						urls: ["https://api.zondax.ch/pas/relay/node/rpc"],
+						urls: ["https://api2.zondax.ch/pas/relay/node/rpc"],
 					},
 					{ provider: "Dwellir", urls: ["wss://paseo-rpc.n.dwellir.com"] },
 					{ provider: "Dotters", urls: ["wss://paseo.dotters.network"] },
@@ -91,7 +91,7 @@ export const DEVELOPERS_PAGE_CONTENT = {
 				endpoints: [
 					{
 						provider: "Zondax",
-						urls: ["https://api.zondax.ch/pas/assethub/node/rpc"],
+						urls: ["https://api2.zondax.ch/pas/assethub/node/rpc"],
 					},
 					{
 						provider: "Dwellir",
@@ -117,7 +117,7 @@ export const DEVELOPERS_PAGE_CONTENT = {
 				endpoints: [
 					{
 						provider: "Zondax",
-						urls: ["https://api.zondax.ch/pas/bridgehub/node/rpc"],
+						urls: ["https://api2.zondax.ch/pas/bridgehub/node/rpc"],
 					},
 					{
 						provider: "Dotters",
@@ -131,7 +131,7 @@ export const DEVELOPERS_PAGE_CONTENT = {
 				endpoints: [
 					{
 						provider: "Zondax",
-						urls: ["https://api.zondax.ch/pas/coretime/node/rpc"],
+						urls: ["https://api2.zondax.ch/pas/coretime/node/rpc"],
 					},
 					{
 						provider: "Dotters",
@@ -145,7 +145,7 @@ export const DEVELOPERS_PAGE_CONTENT = {
 				endpoints: [
 					{
 						provider: "Zondax",
-						urls: ["https://api.zondax.ch/pas/people/node/rpc"],
+						urls: ["https://api2.zondax.ch/pas/people/node/rpc"],
 					},
 					{ provider: "Dotters", urls: ["wss://people-paseo.dotters.network"] },
 					{ provider: "Amforc", urls: ["wss://people-paseo.rpc.amforc.com"] },
@@ -157,7 +157,7 @@ export const DEVELOPERS_PAGE_CONTENT = {
 				endpoints: [
 					{
 						provider: "Zondax",
-						urls: ["https://api.zondax.ch/pas/collectives/node/rpc"],
+						urls: ["https://api2.zondax.ch/pas/collectives/node/rpc"],
 					},
 					{
 						provider: "Dotters",
