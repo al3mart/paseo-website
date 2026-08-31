@@ -1,5 +1,5 @@
 // Auto-generated comparison data from paseo-network/runtimes
-// Last synced: 2026-03-23T09:26:30.869Z
+// Last synced: 2026-08-31T16:53:58.161Z
 // Source: https://github.com/paseo-network/runtimes#testnet-vs-production
 
 export const SYNCED_COMPARISON_DATA = {
